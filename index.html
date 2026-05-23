@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shivba Graphics – Print. Design. Deliver.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ink:    #0d0d0d;
+      --paper:  #f5f0e8;
+      --saffron:#ff6a00;
+      --gold:   #e8b94f;
+      --cyan:   #00c8d7;
+      --red:    #e63946;
+      --muted:  #7a7060;
+      --white:  #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin:0; padding:0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Custom Cursor ── */
+    #cursor {
+      width: 14px; height: 14px;
+      background: var(--saffron);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: transform .1s, background .2s, width .2s, height .2s;
+      mix-blend-mode: difference;
+    }
+    #cursor.big { width:40px; height:40px; background: var(--gold); }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content:'';
+      position:fixed; inset:0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+      pointer-events:none; z-index:9998; opacity:.5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0;
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 1.2rem 4rem;
+      z-index:500;
+      transition: background .4s, backdrop-filter .4s;
+    }
+    nav.scrolled { background: rgba(13,13,13,.85); backdrop-filter: blur(12px); }
+
+    .logo {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.8rem;
+      letter-spacing: .08em;
+      color: var(--paper);
+      text-decoration: none;
+    }
+    .logo span { color: var(--saffron); }
+
+    .nav-links { display:flex; gap:2rem; list-style:none; }
+    .nav-links a {
+      font-family:'Space Mono', monospace;
+      font-size:.85rem; letter-spacing:.15em; text-transform:uppercase;
+      color: var(--paper); text-decoration:none; opacity:.7;
+      transition: opacity .2s, color .2s;
+    }
+    .nav-links a:hover { opacity:1; color:var(--saffron); }
+
+    .nav-cta {
+      font-family:'Space Mono', monospace;
+      font-size:.85rem; letter-spacing:.12em; text-transform:uppercase;
+      background: var(--saffron); color: var(--ink);
+      border:none; padding:.7rem 1.6rem; cursor:none;
+      transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: var(--gold); transform: translateY(-2px); }
+
+    /* ── HERO ── */
+    #hero {
+      height: 100vh;
+      max-height: 100vh;
+      display: flex; flex-direction: column;
+      padding: 0 12vw;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-content {
+      margin-top: auto;
+      padding-top: 2rem;
+      padding-bottom: 3rem;
+      position: relative; z-index: 1;
+      overflow: hidden;
+    }
+    .hero-stats {
+      display:flex; gap:3rem;
+      margin-top:2rem; padding-top:1.5rem;
+      border-top:1px solid rgba(245,240,232,.12);
+      opacity:0; animation: fade-up .6s 1.3s forwards;
+    }
+
+    .hero-bg {
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 70% 60% at 80% 40%, rgba(255,106,0,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 10% 80%, rgba(0,200,215,.12) 0%, transparent 60%),
+        var(--ink);
+    }
+
+    /* Animated halftone dots */
+    .halftone {
+      position:absolute; top:0; right:0;
+      width:55%; height:100%;
+      background-image: radial-gradient(circle, rgba(255,106,0,.25) 1px, transparent 1px);
+      background-size: 28px 28px;
+      animation: halftone-drift 8s ease-in-out infinite alternate;
+      mask-image: linear-gradient(to left, rgba(0,0,0,.7), transparent);
+      -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,.7), transparent);
+    }
+    @keyframes halftone-drift { from{transform:translate(0,0)} to{transform:translate(-12px,8px)} }
+
+    /* Big background text */
+    .hero-bg-text {
+      position:absolute; bottom:-6rem; right:-2rem;
+      font-family:'Bebas Neue', cursive;
+      font-size:22vw; line-height:1;
+      color:rgba(255,255,255,.03);
+      white-space:nowrap; pointer-events:none;
+      animation: bg-float 6s ease-in-out infinite alternate;
+    }
+    @keyframes bg-float { from{transform:translateY(0)} to{transform:translateY(-20px)} }
+
+    /* Floating ink splatter shapes */
+    .ink-blob {
+      position:absolute; border-radius:50%;
+      animation: blob-move 7s ease-in-out infinite alternate;
+      pointer-events:none;
+    }
+    .ink-blob:nth-child(1){ width:320px;height:320px; background:radial-gradient(circle,rgba(255,106,0,.1),transparent); top:8%; right:25%; animation-delay:0s; }
+    .ink-blob:nth-child(2){ width:200px;height:200px; background:radial-gradient(circle,rgba(0,200,215,.12),transparent); top:40%; right:10%; animation-delay:2s; }
+    .ink-blob:nth-child(3){ width:150px;height:150px; background:radial-gradient(circle,rgba(232,185,79,.1),transparent); top:20%; right:42%; animation-delay:4s; }
+    @keyframes blob-move { from{transform:scale(1) translate(0,0)} to{transform:scale(1.12) translate(12px,-15px)} }
+
+    .hero-eyebrow {
+      font-family:'Space Mono', monospace;
+      font-size:.9rem; letter-spacing:.3em; text-transform:uppercase;
+      color:var(--saffron); margin-bottom:1.2rem;
+      opacity:0; animation: fade-up .6s .2s forwards;
+    }
+
+    .hero-title {
+      font-family:'Bebas Neue', cursive;
+      font-size: clamp(4rem, 11vw, 11rem);
+      line-height: .92;
+      letter-spacing: .02em;
+      position:relative; z-index:1;
+    }
+    .hero-title .line { display:block; overflow:hidden; }
+    .hero-title .line span {
+      display:block;
+      transform: translateY(110%);
+      animation: slide-up .7s cubic-bezier(.16,1,.3,1) forwards;
+    }
+    .hero-title .line:nth-child(1) span { animation-delay:.35s; }
+    .hero-title .line:nth-child(2) span { animation-delay:.5s; color:var(--saffron); }
+    .hero-title .line:nth-child(3) span { animation-delay:.65s; }
+
+    .hero-sub {
+      max-width:520px;
+      font-size:1.15rem; line-height:1.7; color:rgba(245,240,232,.6);
+      margin-top:1.2rem;
+      opacity:0; animation: fade-up .6s .9s forwards;
+    }
+
+    .hero-actions {
+      display:flex; align-items:center; gap:2rem;
+      margin-top:2rem;
+      opacity:0; animation: fade-up .6s 1.1s forwards;
+    }
+    .btn-primary {
+      background:var(--saffron); color:var(--ink);
+      font-family:'Space Mono', monospace;
+      font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;
+      padding:1rem 2.4rem; text-decoration:none;
+      display:inline-block; position:relative; overflow:hidden;
+      transition: color .3s;
+    }
+    .btn-primary::before {
+      content:''; position:absolute; inset:0;
+      background:var(--ink); transform:translateX(-101%);
+      transition: transform .3s cubic-bezier(.16,1,.3,1);
+    }
+    .btn-primary:hover { color:var(--paper); }
+    .btn-primary:hover::before { transform:translateX(0); }
+    .btn-primary span { position:relative; }
+
+    .btn-ghost {
+      font-family:'Space Mono', monospace;
+      font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--paper); text-decoration:none;
+      border-bottom:1px solid rgba(245,240,232,.3);
+      padding-bottom:.15rem;
+      transition: color .2s, border-color .2s;
+    }
+    .btn-ghost:hover { color:var(--gold); border-color:var(--gold); }
+
+    .stat-num {
+      font-family:'Bebas Neue', cursive;
+      font-size:2.8rem; color:var(--saffron);
+      display:block; line-height:1;
+    }
+    .stat-label {
+      font-size:.85rem; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--muted); margin-top:.3rem;
+    }
+
+    /* Scroll indicator */
+    .scroll-hint {
+      position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+      display:flex; flex-direction:column; align-items:center; gap:.5rem;
+      font-family:'Space Mono', monospace; font-size:.6rem; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--muted);
+      animation: fade-up .6s 1.6s both;
+    }
+    .scroll-line {
+      width:1px; height:40px; background:linear-gradient(var(--saffron), transparent);
+      animation: scroll-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes scroll-pulse { 0%,100%{transform:scaleY(1);opacity:.6} 50%{transform:scaleY(1.3);opacity:1} }
+
+    @keyframes fade-up {
+      from{opacity:0; transform:translateY(20px)}
+      to  {opacity:1; transform:translateY(0)}
+    }
+    @keyframes slide-up {
+      to { transform: translateY(0); }
+    }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip {
+      background: var(--saffron); padding:.9rem 0; overflow:hidden;
+      border-top:3px solid var(--gold); border-bottom:3px solid var(--gold);
+    }
+    .marquee-inner {
+      display:flex; width:max-content;
+      animation: marquee-scroll 22s linear infinite;
+    }
+    .marquee-item {
+      white-space:nowrap;
+      font-family:'Bebas Neue', cursive;
+      font-size:1.1rem; letter-spacing:.18em;
+      color:var(--ink); padding:0 2.5rem;
+    }
+    .marquee-dot { color:var(--ink); font-size:1.4rem; margin-right:2.5rem; }
+    @keyframes marquee-scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ── SECTION BASICS ── */
+    section { padding:7rem 4rem; }
+    .section-label {
+      font-family:'Space Mono', monospace;
+      font-size:1.05rem; font-weight:700; letter-spacing:.28em; text-transform:uppercase;
+      color:var(--saffron); margin-bottom:1rem;
+    }
+    .section-title {
+      font-family:'Bebas Neue', cursive;
+      font-size: clamp(3.5rem, 6vw, 6.5rem);
+      line-height:1; letter-spacing:.03em;
+    }
+
+    /* ── SERVICES ── */
+    #services { background:var(--paper); color:var(--ink); position:relative; overflow:hidden; }
+    #services .section-label { color:var(--saffron); }
+
+    .services-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+      gap:2px; margin-top:4rem;
+    }
+    .service-card {
+      background:var(--ink); color:var(--paper);
+      padding:2.5rem; position:relative; overflow:hidden;
+      transition:transform .3s cubic-bezier(.16,1,.3,1);
+    }
+    .service-card::before {
+      content:''; position:absolute; inset:0;
+      background:var(--saffron); transform:translateY(101%);
+      transition:transform .4s cubic-bezier(.16,1,.3,1);
+      z-index:0;
+    }
+    .service-card:hover { transform:translateY(-6px); }
+    .service-card:hover::before { transform:translateY(0); }
+    .service-card:hover .service-icon,
+    .service-card:hover .service-name,
+    .service-card:hover .service-desc { color:var(--ink) !important; }
+    .service-card:hover .service-num { color:rgba(0,0,0,.15); }
+
+    .service-card > * { position:relative; z-index:1; }
+
+    .service-num {
+      font-family:'Bebas Neue', cursive;
+      font-size:5rem; line-height:1; color:rgba(255,255,255,.06);
+      position:absolute; top:.5rem; right:1rem;
+      transition:color .3s;
+    }
+    .service-icon { font-size:2.4rem; margin-bottom:1.2rem; display:block; transition:color .3s; }
+    .service-name {
+      font-family:'Bebas Neue', cursive;
+      font-size:2.2rem; letter-spacing:.04em;
+      margin-bottom:.8rem; transition:color .3s;
+    }
+    .service-desc { font-size:1rem; line-height:1.7; color:rgba(245,240,232,.6); transition:color .3s; }
+
+    /* ── WHY US / FEATURES ── */
+    #features {
+      background:var(--ink);
+      display:grid; grid-template-columns:420px 1fr; gap:5rem; align-items:center;
+      padding-left:12vw; /* match hero margins */
+      padding-right:12vw;
+    }
+
+    #features .image-col {
+      position:relative;
+      display:flex; align-items:center; justify-content:flex-end; padding-right:1.5rem;
+    }
+
+    /* Move the text column slightly to the right to give breathing room from images */
+    #features > div:nth-child(2) {
+      padding-left:5rem;
+    }
+
+    /* Vertical zigzag stack — 3 images offset left/right and overlapping vertically */
+    .features-img-wrap {
+      position:relative;
+      width:390px; /* 50% larger than before */
+      height:780px; /* 50% larger */
+      margin:0 auto;
+      flex-shrink:0;
+    }
+
+    .features-img-wrap .feat-img {
+      position:absolute;
+      width:330px; /* 50% larger */
+      height:240px; /* 50% larger */
+      object-fit:cover;
+      border:5px solid #1a1a1a;
+      box-shadow:0 20px 48px rgba(0,0,0,.55);
+      transition:transform .3s ease, box-shadow .3s ease;
+      border-radius:3px;
+    }
+
+    /* Image 1 — top, shifted left */
+    .features-img-wrap .feat-img--1 {
+      top:0px;
+      left:90px; /* nudged further right */
+      transform:rotate(-3deg);
+      z-index:1;
+    }
+    /* Image 2 — middle, shifted right, overlaps img1 bottom */
+    .features-img-wrap .feat-img--2 {
+      top:240px; /* 160 -> 240 */
+      left:150px; /* nudged further right */
+      transform:rotate(2deg);
+      z-index:3;
+    }
+    /* Image 3 — bottom, shifted left again, overlaps img2 bottom */
+    .features-img-wrap .feat-img--3 {
+      top:480px; /* 320 -> 480 */
+      left:90px; /* nudged further right */
+      transform:rotate(-2deg);
+      z-index:2;
+    }
+
+    .features-img-wrap .feat-img:hover {
+      transform:rotate(0deg) scale(1.04);
+      box-shadow:0 24px 50px rgba(0,0,0,.7);
+      z-index:10;
+    }
+
+    .img-accent {
+      position:absolute; bottom:-1.5rem; right:-3rem;
+      width:140px; height:140px;
+      background:var(--saffron);
+      display:flex; align-items:center; justify-content:center;
+      z-index:20;
+    }
+    .img-accent-text {
+      font-family:'Bebas Neue', cursive;
+      font-size:.75rem; letter-spacing:.1em;
+      text-align:center; color:var(--ink); padding:.8rem;
+      line-height:1.3;
+    }
+    .img-accent-num { font-size:2.2rem; display:block; }
+
+    .features-list { margin-top:3rem; display:flex; flex-direction:column; gap:1.5rem; }
+    .feature-item {
+      display:flex; gap:1.5rem; align-items:flex-start;
+      padding:1.4rem; border:1px solid rgba(245,240,232,.08);
+      transition:border-color .3s, background .3s;
+    }
+    .feature-item:hover { border-color:var(--saffron); background:rgba(255,106,0,.04); }
+    .feature-icon-box {
+      width:44px; height:44px; flex-shrink:0;
+      background:var(--saffron); display:flex; align-items:center; justify-content:center;
+      font-size:1.2rem;
+    }
+    .feature-title { font-family:'Space Mono', monospace; font-size:1rem; letter-spacing:.06em; margin-bottom:.4rem; }
+    .feature-desc { font-size:.95rem; color:rgba(245,240,232,.55); line-height:1.6; }
+
+    /* ── PORTFOLIO ── */
+    #portfolio { background:#111; overflow:hidden; }
+    .portfolio-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:2.5rem; }
+
+    /* Netflix-style scroll row */
+    .portfolio-scroll-wrap {
+      position:relative;
+    }
+    .portfolio-row {
+      display:flex; gap:1.2rem;
+      overflow-x:auto; overflow-y:visible;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      padding:1rem 0 2rem;
+      scrollbar-width:none;
+      cursor:grab;
+    }
+    .portfolio-row:active { cursor:grabbing; }
+    .portfolio-row::-webkit-scrollbar { display:none; }
+
+    .port-card {
+      flex:0 0 400px; height:263px;
+      position:relative; overflow:hidden;
+      scroll-snap-align:start;
+      border-radius:2px;
+      transition:transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s;
+      cursor:none;
+    }
+    .port-card:hover {
+      transform:scale(1.06) translateY(-6px);
+      box-shadow:0 20px 50px rgba(0,0,0,.6);
+      z-index:10;
+    }
+    .port-card img {
+      width:100%; height:100%; object-fit:cover;
+      transition:transform .5s cubic-bezier(.16,1,.3,1);
+    }
+    .port-card:hover img { transform:scale(1.08); }
+
+    .port-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(13,13,13,.92) 0%, rgba(13,13,13,.1) 55%, transparent 100%);
+      opacity:0; transition:opacity .3s;
+      display:flex; align-items:flex-end; padding:1.2rem;
+    }
+    .port-card:hover .port-overlay { opacity:1; }
+    .port-label {
+      font-family:'Bebas Neue', cursive;
+      font-size:1.4rem; letter-spacing:.06em; color:var(--paper);
+    }
+    .port-tag { font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; color:var(--saffron); display:block; margin-bottom:.3rem; }
+
+    /* Fade edges */
+    .portfolio-scroll-wrap::before,
+    .portfolio-scroll-wrap::after {
+      content:''; position:absolute; top:0; bottom:0; width:80px; z-index:5; pointer-events:none;
+    }
+    .portfolio-scroll-wrap::before { left:0;  background:linear-gradient(to right, #111, transparent); }
+    .portfolio-scroll-wrap::after  { right:0; background:linear-gradient(to left,  #111, transparent); }
+
+    /* Arrow buttons */
+    .scroll-btn {
+      position:absolute; top:50%; transform:translateY(-60%);
+      width:48px; height:48px; border-radius:50%;
+      background:rgba(255,106,0,.9); border:none; color:var(--ink);
+      font-size:1.3rem; display:flex; align-items:center; justify-content:center;
+      cursor:none; z-index:10;
+      transition:background .2s, transform .2s;
+      opacity:0.9;
+    }
+    .scroll-btn:hover { background:var(--gold); transform:translateY(-60%) scale(1.1); }
+    .scroll-btn.left  { left:10px; }
+    .scroll-btn.right { right:10px; }
+
+    /* Progress dots */
+    .port-dots { display:flex; gap:.5rem; justify-content:center; margin-top:.5rem; }
+    .port-dot {
+      width:28px; height:3px; background:rgba(245,240,232,.2);
+      transition:background .3s, width .3s;
+    }
+    .port-dot.active { background:var(--saffron); width:44px; }
+
+    /* ── PROCESS ── */
+    #process { background:var(--paper); color:var(--ink); }
+    .process-steps {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+      margin-top:4rem; position:relative;
+    }
+    .process-steps::before {
+      content:''; position:absolute; top:2.5rem; left:12%; right:12%; height:2px;
+      background:repeating-linear-gradient(to right, var(--saffron) 0, var(--saffron) 8px, transparent 8px, transparent 16px);
+    }
+    .step {
+      padding:2rem 1.5rem; text-align:center; position:relative;
+    }
+    .step-circle {
+      width:52px; height:52px; border-radius:50%;
+      background:var(--saffron); color:var(--ink);
+      font-family:'Bebas Neue', cursive; font-size:1.5rem;
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 1.5rem;
+      position:relative; z-index:1;
+      transition:transform .3s, background .3s;
+    }
+    .step:hover .step-circle { transform:scale(1.15); background:var(--ink); color:var(--paper); }
+    .step-title { font-family:'Bebas Neue', cursive; font-size:1.9rem; margin-bottom:.5rem; }
+    .step-desc { font-size:.95rem; color:var(--muted); line-height:1.6; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background:var(--ink); }
+    .testimonials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-top:4rem; }
+    .testi-card {
+      padding:2rem; border:1px solid rgba(245,240,232,.08);
+      position:relative; overflow:hidden;
+      transition:border-color .3s, transform .3s;
+    }
+    .testi-card:hover { border-color:rgba(255,106,0,.4); transform:translateY(-4px); }
+    .testi-quote { font-size:4rem; font-family:'Georgia', serif; color:var(--saffron); line-height:.7; margin-bottom:1rem; }
+    .testi-text { font-size:1rem; line-height:1.8; color:rgba(245,240,232,.7); margin-bottom:1.5rem; font-style:italic; }
+    .testi-name { font-family:'Space Mono', monospace; font-size:.9rem; color:var(--paper); }
+    .testi-role { font-size:.82rem; color:var(--muted); margin-top:.2rem; }
+    .testi-stars { color:var(--gold); letter-spacing:.1em; margin-bottom:1rem; font-size:1rem; }
+
+    /* ── CONTACT ── */
+    #contact {
+      background:
+        radial-gradient(ellipse 60% 80% at 90% 50%, rgba(255,106,0,.12) 0%, transparent 70%),
+        var(--ink);
+      display:grid; grid-template-columns:1fr 1fr; gap:6rem; align-items:start;
+      padding-left: 12vw; padding-right: 12vw;
+    }
+
+    .contact-info { padding-top:1rem; }
+    .contact-info .section-title { margin-bottom:1.5rem; }
+    .contact-tagline { font-size:1.1rem; line-height:1.8; color:rgba(245,240,232,.6); max-width:380px; }
+
+    .contact-details { margin-top:3rem; display:flex; flex-direction:column; gap:1.8rem; }
+    .contact-detail {
+      display:flex; align-items:flex-start; gap:1.2rem;
+    }
+    .detail-icon {
+      width:40px; height:40px; flex-shrink:0;
+      background:rgba(255,106,0,.12); border:1px solid rgba(255,106,0,.3);
+      display:flex; align-items:center; justify-content:center; font-size:1rem;
+    }
+    .detail-label { font-family:'Space Mono', monospace; font-size:.8rem; letter-spacing:.15em; text-transform:uppercase; color:var(--saffron); margin-bottom:.3rem; }
+    .detail-value { font-size:1rem; color:rgba(245,240,232,.8); line-height:1.5; }
+
+    .social-links { display:flex; gap:1rem; margin-top:2.5rem; }
+    .social-link {
+      width:40px; height:40px;
+      background:rgba(245,240,232,.07); border:1px solid rgba(245,240,232,.12);
+      display:flex; align-items:center; justify-content:center;
+      text-decoration:none; font-size:1rem;
+      transition:background .2s, border-color .2s, transform .2s;
+    }
+    .social-link:hover { background:var(--saffron); border-color:var(--saffron); transform:translateY(-3px); }
+
+    /* Contact Form */
+    .contact-form {
+      background:rgba(245,240,232,.04);
+      border:1px solid rgba(245,240,232,.1);
+      padding:3rem;
+    }
+    .form-title {
+      font-family:'Bebas Neue', cursive; font-size:2.2rem;
+      letter-spacing:.06em; margin-bottom:2rem; color:var(--paper);
+    }
+
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .form-group { margin-bottom:1.2rem; position:relative; }
+    .form-group label {
+      display:block; font-family:'Space Mono', monospace;
+      font-size:.75rem; letter-spacing:.2em; text-transform:uppercase;
+      color:var(--saffron); margin-bottom:.5rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width:100%; padding:.85rem 1rem;
+      background:rgba(245,240,232,.06);
+      border:1px solid rgba(245,240,232,.12);
+      color:var(--paper);
+      font-family:'DM Sans', sans-serif; font-size:1rem;
+      outline:none; transition:border-color .2s, background .2s;
+      cursor:none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color:rgba(245,240,232,.3); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color:var(--saffron); background:rgba(255,106,0,.05);
+    }
+    .form-group select { appearance:none; }
+    .form-group textarea { resize:vertical; min-height:120px; }
+
+    /* Make select options readable in the contact form */
+    .contact-form .form-group select option {
+      color: #000 !important;
+      background: var(--paper) !important;
+    }
+    .form-bottom { display:flex; align-items:center; justify-content:space-between; margin-top:1.5rem; }
+    .form-privacy { font-size:.72rem; color:var(--muted); max-width:180px; line-height:1.5; }
+    .form-submit {
+      background:var(--saffron); color:var(--ink);
+      font-family:'Space Mono', monospace;
+      font-size:.88rem; letter-spacing:.12em; text-transform:uppercase;
+      border:none; padding:1rem 2rem; cursor:none;
+      position:relative; overflow:hidden;
+      transition:background .2s;
+    }
+    .form-submit::after {
+      content:''; position:absolute; inset:0;
+      background:rgba(255,255,255,.2); transform:translateX(-101%);
+      transition:transform .3s;
+    }
+    .form-submit:hover::after { transform:translateX(0); }
+
+    .form-msg { margin-top:1rem; font-size:.82rem; padding:.6rem 1rem; display:none; }
+    .form-msg.success { background:rgba(0,200,100,.15); border-left:3px solid #00c864; color:#00c864; display:block; }
+    .form-msg.error   { background:rgba(230,57,70,.15);  border-left:3px solid var(--red);  color:var(--red);  display:block; }
+
+    /* ── FOOTER ── */
+    footer {
+      background:#080808;
+      padding:3rem 4rem;
+      display:flex; align-items:center; justify-content:space-between;
+      border-top:1px solid rgba(245,240,232,.07);
+    }
+    .footer-logo { font-family:'Bebas Neue', cursive; font-size:2rem; color:var(--paper); }
+    .footer-logo span { color:var(--saffron); }
+    .footer-copy { font-size:.75rem; color:var(--muted); font-family:'Space Mono', monospace; }
+    .footer-back {
+      font-family:'Space Mono', monospace; font-size:.7rem; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--saffron); text-decoration:none;
+      border:1px solid rgba(255,106,0,.3); padding:.6rem 1.2rem;
+      transition:background .2s, color .2s;
+    }
+    .footer-back:hover { background:var(--saffron); color:var(--ink); }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity:0; transform:translateY(36px);
+      transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+    .reveal-d1 { transition-delay:.1s; }
+    .reveal-d2 { transition-delay:.2s; }
+    .reveal-d3 { transition-delay:.3s; }
+    .reveal-d4 { transition-delay:.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){
+      #features { grid-template-columns:1fr; }
+      #features > div:nth-child(2) { padding-left:0; }
+      #contact   { grid-template-columns:1fr; gap:3rem; padding-left:6vw; padding-right:6vw; }
+      .process-steps { grid-template-columns:repeat(2,1fr); }
+      .process-steps::before { display:none; }
+      .testimonials-grid { grid-template-columns:1fr; }
+    }
+    @media(max-width:768px){
+      nav { padding:1rem 1.5rem; }
+      .nav-links { display:none; }
+      section { padding:5rem 1.5rem; }
+      #hero { padding:0 6vw; }
+      #hero .hero-content { padding-bottom: 3rem; }
+      #contact { padding-left:1.5rem; padding-right:1.5rem; }
+      .form-row { grid-template-columns:1fr; }
+      footer { flex-direction:column; gap:1.5rem; text-align:center; }
+      .hero-stats { flex-wrap:wrap; gap:2rem; }
+      .port-card { flex:0 0 325px; height:213px; }
+      .scroll-btn { width:36px; height:36px; font-size:1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a href="#hero" class="logo">Shivba <span>Graphics</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get Quote</button>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="halftone"></div>
+  <div class="hero-bg-text">SHIVBA</div>
+  <div class="ink-blob"></div>
+  <div class="ink-blob"></div>
+  <div class="ink-blob"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">✦ Shivba Graphics — Est. 2021 ✦</p>
+
+  <h1 class="hero-title">
+    <span class="line"><span>Print.</span></span>
+    <span class="line"><span>Design.</span></span>
+    <span class="line"><span>Deliver.</span></span>
+  </h1>
+
+  <p class="hero-sub">
+    From bold banners that command attention to elegant visiting cards that leave lasting impressions — Shivba Graphics brings every idea to vivid, high-quality life.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#portfolio" class="btn-primary"><span>View Our Work</span></a>
+    <a href="#contact" class="btn-ghost">Start a Project →</a>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <span class="stat-num" data-count="1200">0</span>
+      <div class="stat-label">Projects Completed</div>
+    </div>
+    <div>
+      <span class="stat-num" data-count="850">0</span>
+      <div class="stat-label">Happy Clients</div>
+    </div>
+    <div>
+      <span class="stat-num" data-count="14">0</span>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div>
+      <span class="stat-num" data-count="100">0</span>
+      <div class="stat-label">% Satisfaction</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+  </div><!-- end .hero-content -->
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="marquee-strip">
+  <div class="marquee-inner" id="marquee">
+    <span class="marquee-item">Banner Printing</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Visiting Cards</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Digital Printing</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Graphic Design</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Flex Printing</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Branding</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Logo Design</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Poster Design</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Sticker Printing</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Brochures</span><span class="marquee-dot">◆</span>
+    <!-- Duplicate for seamless loop -->
+    <span class="marquee-item">Banner Printing</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Visiting Cards</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Digital Printing</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Graphic Design</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Flex Printing</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Branding</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Logo Design</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Poster Design</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Sticker Printing</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Brochures</span><span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="services">
+  <p class="section-label reveal">What We Do</p>
+  <h2 class="section-title reveal reveal-d1">Our Core Services</h2>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-num">01</span>
+      <span class="service-icon">🖨️</span>
+      <div class="service-name">Banner Printing</div>
+      <p class="service-desc">Vibrant, weather-resistant banners for events, shops, promotions, and outdoor advertising. Available in all sizes — from tabletop to massive hoardings.</p>
+    </div>
+    <div class="service-card reveal reveal-d1">
+      <span class="service-num">02</span>
+      <span class="service-icon">💳</span>
+      <div class="service-name">Visiting Cards</div>
+      <p class="service-desc">Premium quality visiting cards with matte/gloss finishes, spot UV, embossing, and custom die cuts. Make your first impression count every time.</p>
+    </div>
+    <div class="service-card reveal reveal-d2">
+      <span class="service-num">03</span>
+      <span class="service-icon">🖼️</span>
+      <div class="service-name">Digital Printing</div>
+      <p class="service-desc">High-resolution digital prints on paper, vinyl, canvas, and specialty media. Perfect colour accuracy, sharp detail, and fast turnaround.</p>
+    </div>
+    <div class="service-card reveal reveal-d3">
+      <span class="service-num">04</span>
+      <span class="service-icon">✏️</span>
+      <div class="service-name">Graphic Design</div>
+      <p class="service-desc">Creative graphic design solutions — logos, brand identity, social media creatives, packaging, posters, brochures, and complete brand kits.</p>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">05</span>
+      <span class="service-icon">📄</span>
+      <div class="service-name">Brochures & Leaflets</div>
+      <p class="service-desc">Eye-catching brochures and leaflets that communicate your message with clarity. Folded, stapled, or saddle-stitched — we handle it all.</p>
+    </div>
+    <div class="service-card reveal reveal-d1">
+      <span class="service-num">06</span>
+      <span class="service-icon">🏷️</span>
+      <div class="service-name">Stickers & Labels</div>
+      <p class="service-desc">Custom stickers, product labels, seal stickers, and vinyl decals. Indoor and outdoor grades available with strong adhesive backing.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY US ═══ -->
+<section id="features">
+  <div class="image-col reveal">
+    <div class="features-img-wrap">
+      <img class="feat-img feat-img--1" src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=700&q=80" alt="Brand Identity" loading="lazy"/>
+      <img class="feat-img feat-img--2" src="https://images.unsplash.com/photo-1636633762833-5d1658f1e29b?w=600&q=80" alt="Business Cards" loading="lazy"/>
+      <img class="feat-img feat-img--3" src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80" alt="Event Banner" loading="lazy"/>
+    </div>
+    <!-- <div class="img-accent">
+      <div class="img-accent-text">
+        <span class="img-accent-num">14+</span>
+        Years of Creative Excellence
+      </div>
+    </div> -->
+  </div>
+
+  <div>
+    <p class="section-label reveal">Why Choose Us</p>
+    <h2 class="section-title reveal reveal-d1">Quality You Can<br>Hold In Your Hands</h2>
+    <div class="features-list">
+      <div class="feature-item reveal reveal-d1">
+        <div class="feature-icon-box">🎯</div>
+        <div>
+          <div class="feature-title">Pixel-Perfect Printing</div>
+          <p class="feature-desc">State-of-the-art printers ensure every job meets the highest colour accuracy and sharpness standards — no compromise on quality.</p>
+        </div>
+      </div>
+      <div class="feature-item reveal reveal-d2">
+        <div class="feature-icon-box">⚡</div>
+        <div>
+          <div class="feature-title">Fast Turnaround</div>
+          <p class="feature-desc">Urgent printing done right. We offer same-day and next-day delivery for most standard print products without extra cost.</p>
+        </div>
+      </div>
+      <div class="feature-item reveal reveal-d3">
+        <div class="feature-icon-box">💰</div>
+        <div>
+          <div class="feature-title">Affordable Pricing</div>
+          <p class="feature-desc">Competitive rates for individuals, startups, and enterprises alike. Bulk discounts available. Quality printing shouldn't break the bank.</p>
+        </div>
+      </div>
+      <div class="feature-item reveal reveal-d4">
+        <div class="feature-icon-box">🤝</div>
+        <div>
+          <div class="feature-title">End-to-End Support</div>
+          <p class="feature-desc">From design ideation to final delivery — our team guides you every step. We won't rest until you're 100% satisfied with your order.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PORTFOLIO ═══ -->
+<section id="portfolio">
+  <div class="portfolio-header">
+    <div>
+      <p class="section-label reveal">Our Work</p>
+      <h2 class="section-title reveal reveal-d1">Recent Projects</h2>
+    </div>
+    <a href="#contact" class="btn-ghost reveal">Start Yours →</a>
+  </div>
+
+  <div class="portfolio-scroll-wrap reveal">
+    <button class="scroll-btn left" id="portLeft" aria-label="Scroll left">&#8592;</button>
+    <button class="scroll-btn right" id="portRight" aria-label="Scroll right">&#8594;</button>
+
+    <div class="portfolio-row" id="portRow">
+      <div class="port-card">
+        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=700&q=80" alt="Brand Identity" loading="lazy"/>
+        <div class="port-overlay">
+          <div><span class="port-tag">Branding</span><div class="port-label">Complete Brand Identity</div></div>
+        </div>
+      </div>
+      <div class="port-card">
+        <img src="https://images.unsplash.com/photo-1636633762833-5d1658f1e29b?w=600&q=80" alt="Business Cards" loading="lazy"/>
+        <div class="port-overlay">
+          <div><span class="port-tag">Visiting Cards</span><div class="port-label">Premium Matte Finish</div></div>
+        </div>
+      </div>
+      <div class="port-card">
+        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&q=80" alt="Event Banner" loading="lazy"/>
+        <div class="port-overlay">
+          <div><span class="port-tag">Banner</span><div class="port-label">Event Banner Print</div></div>
+        </div>
+      </div>
+      <div class="port-card">
+        <img src="https://images.unsplash.com/photo-1524234107056-1c1f48f64ab8?w=600&q=80" alt="Poster Design" loading="lazy"/>
+        <div class="port-overlay">
+          <div><span class="port-tag">Graphic Design</span><div class="port-label">Marketing Poster</div></div>
+        </div>
+      </div>
+      <div class="port-card">
+        <img src="https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=600&q=80" alt="Brochure" loading="lazy"/>
+        <div class="port-overlay">
+          <div><span class="port-tag">Print Collateral</span><div class="port-label">Tri-fold Brochure</div></div>
+        </div>
+      </div>
+      <div class="port-card">
+        <!-- <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80" alt="Digital Print" loading="lazy"/> -->
+         <img src="assets\image_(5).png" alt="Digital Print" loading="lazy"/>
+        <div class="port-overlay">
+          <div><span class="port-tag">Digital Printing</span><div class="port-label">Large Format Print</div></div>
+        </div>
+      </div>
+      <div class="port-card">
+        <img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?w=600&q=80" alt="Sticker Labels" loading="lazy"/>
+        <div class="port-overlay">
+          <div><span class="port-tag">Stickers</span><div class="port-label">Custom Product Labels</div></div>
+        </div>
+      </div>
+      <div class="port-card">
+        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=80" alt="Office Branding" loading="lazy"/>
+        <div class="port-overlay">
+          <div><span class="port-tag">Signage</span><div class="port-label">Office Branding</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="port-dots" id="portDots"></div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section id="process">
+  <p class="section-label reveal">How It Works</p>
+  <h2 class="section-title reveal reveal-d1">Simple 4-Step<br>Process</h2>
+  <div class="process-steps">
+    <div class="step reveal">
+      <div class="step-circle">01</div>
+      <div class="step-title">Share Your Idea</div>
+      <p class="step-desc">Tell us what you need — brief, concept, or just a rough idea. We'll take it from there and suggest the best approach.</p>
+    </div>
+    <div class="step reveal reveal-d1">
+      <div class="step-circle">02</div>
+      <div class="step-title">Design & Approve</div>
+      <p class="step-desc">Our designers create proofs for your review. We revise until you're completely happy — unlimited revisions on design.</p>
+    </div>
+    <div class="step reveal reveal-d2">
+      <div class="step-circle">03</div>
+      <div class="step-title">Print & Produce</div>
+      <p class="step-desc">Once approved, we use premium materials and latest printing technology for production. Quality checked at every step.</p>
+    </div>
+    <div class="step reveal reveal-d3">
+      <div class="step-circle">04</div>
+      <div class="step-title">Deliver to You</div>
+      <p class="step-desc">Fast, safe delivery to your doorstep or pick up from our studio. On-time, every time — we respect your deadlines.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section id="testimonials">
+  <p class="section-label reveal">Testimonials</p>
+  <h2 class="section-title reveal reveal-d1">What Our Clients Say</h2>
+  <div class="testimonials-grid">
+    <div class="testi-card reveal">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Got our shop banners and visiting cards done from Shivba Graphics. The print quality was outstanding and delivery was same day! Highly recommended for anyone in the area.</p>
+      <div class="testi-name">Ramesh Sharma</div>
+      <div class="testi-role">Owner, Sharma Electronics</div>
+    </div>
+    <div class="testi-card reveal reveal-d1">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">Very professional team. They helped us design our entire brand identity from scratch — logo, business cards, and brochures. Everything came out better than expected.</p>
+      <div class="testi-name">Priya Mehta</div>
+      <div class="testi-role">Founder, Priya Boutique</div>
+    </div>
+    <div class="testi-card reveal reveal-d2">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text">We needed 50 flex banners for our annual event at short notice. Shivba Graphics delivered all of them the next morning with excellent print quality. Amazing service!</p>
+      <div class="testi-name">Ajay Patil</div>
+      <div class="testi-role">Event Manager, AP Events</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contact">
+  <div class="contact-info">
+    <p class="section-label reveal">Get In Touch</p>
+    <h2 class="section-title reveal reveal-d1">Let's Create<br>Something<br><span style="color:var(--saffron)">Together</span></h2>
+    <p class="contact-tagline reveal reveal-d2">
+      Ready to bring your vision to life? Reach out and we'll get back to you within a few hours with a quote and timeline.
+    </p>
+
+    <div class="contact-details">
+      <div class="contact-detail reveal">
+        <div class="detail-icon">📍</div>
+        <div>
+          <div class="detail-label">Visit Us</div>
+          <div class="detail-value">Shivba Graphics, Near Main Market<br>Your City, Maharashtra, India</div>
+        </div>
+      </div>
+      <div class="contact-detail reveal reveal-d1">
+        <div class="detail-icon">📞</div>
+        <div>
+          <div class="detail-label">Call / WhatsApp</div>
+          <div class="detail-value">+91 98765 43210</div>
+        </div>
+      </div>
+      <div class="contact-detail reveal reveal-d2">
+        <div class="detail-icon">✉️</div>
+        <div>
+          <div class="detail-label">Email Us</div>
+          <div class="detail-value">suyashkharde00@gmail.com</div>
+        </div>
+      </div>
+      <!-- <div class="contact-detail reveal reveal-d3">
+        <div class="detail-icon">🕐</div>
+        <div>
+          <div class="detail-label">Working Hours</div>
+          <div class="detail-value">Mon–Sat: 9:00 AM – 8:00 PM<br>Sunday: 10:00 AM – 4:00 PM</div>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- <div class="social-links reveal">
+      <a class="social-link" href="#" title="Instagram">📸</a>
+      <a class="social-link" href="#" title="Facebook">📘</a>
+      <a class="social-link" href="#" title="WhatsApp">💬</a>
+      <a class="social-link" href="#" title="YouTube">▶️</a>
+    </div> -->
+  </div>
+
+  <!-- Contact Form -->
+  <div class="contact-form reveal reveal-d2">
+    <div class="form-title">Send Us a Message</div>
+    <form id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input type="text" id="fname" placeholder="Ramesh Sharma" required/>
+        </div>
+        <div class="form-group">
+          <label>Phone / WhatsApp *</label>
+          <input type="tel" id="fphone" placeholder="+91 98765 43210" required/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="femail" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Service Needed *</label>
+        <select id="fservice" required>
+          <option value="" disabled selected>Select a service…</option>
+          <option>Banner Printing</option>
+          <option>Visiting Cards</option>
+          <option>Digital Printing</option>
+          <option>Graphic Design</option>
+          <option>Brochures & Leaflets</option>
+          <option>Stickers & Labels</option>
+          <option>Complete Branding</option>
+          <option>Other / Multiple</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell Us About Your Project *</label>
+        <textarea id="fmsg" placeholder="Describe what you need — size, quantity, deadline, any special requirements…" required></textarea>
+      </div>
+      <div class="form-bottom">
+        <p class="form-privacy">We respect your privacy. No spam, ever.</p>
+        <button type="submit" class="form-submit">Send Message ✦</button>
+      </div>
+      <div class="form-msg" id="formMsg"></div>
+    </form>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">Shivba <span>Graphics</span></div>
+  <p class="footer-copy">© 2024 Shivba Graphics. All rights reserved.<br>Print. Design. Deliver.</p>
+  <a href="#hero" class="footer-back">↑ Back to Top</a>
+</footer>
+
+<script>
+  /* ── Cursor ── */
+  const cur = document.getElementById('cursor');
+  document.addEventListener('mousemove', e => {
+    cur.style.left = e.clientX + 'px';
+    cur.style.top  = e.clientY + 'px';
+  });
+  document.querySelectorAll('a,button,input,select,textarea,.service-card,.port-item')
+    .forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('big'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('big'));
+    });
+
+  /* ── Nav scroll ── */
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', scrollY > 60);
+  });
+
+  /* ── Scroll reveal ── */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* ── Counter animation ── */
+  function animateCount(el, target, duration = 1800){
+    let start = null;
+    const step = ts => {
+      if(!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(ease * target).toLocaleString() + (target === 100 ? '%' : '+');
+      if(progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  const counterObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const target = +e.target.dataset.count;
+        animateCount(e.target, target);
+        counterObserver.unobserve(e.target);
+      }
+    });
+  }, {threshold:.5});
+  document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+  /* ── Portfolio Netflix Scroll ── */
+  const portRow   = document.getElementById('portRow');
+  const portLeft  = document.getElementById('portLeft');
+  const portRight = document.getElementById('portRight');
+  const dotsWrap  = document.getElementById('portDots');
+  const cards     = portRow.querySelectorAll('.port-card');
+  const CARD_W    = 400 + 19; // card width + gap (updated for 25% larger cards)
+
+  // Build dots
+  const totalDots = Math.ceil(cards.length / 3);
+  for(let i = 0; i < totalDots; i++){
+    const d = document.createElement('div');
+    d.className = 'port-dot' + (i===0?' active':'');
+    dotsWrap.appendChild(d);
+  }
+
+  function updateDots(){
+    const idx = Math.round(portRow.scrollLeft / CARD_W / 3);
+    dotsWrap.querySelectorAll('.port-dot').forEach((d,i) => d.classList.toggle('active', i===idx));
+  }
+
+  portRight.addEventListener('click', () => {
+    portRow.scrollBy({left: CARD_W * 3, behavior:'smooth'});
+  });
+  portLeft.addEventListener('click', () => {
+    portRow.scrollBy({left: -CARD_W * 3, behavior:'smooth'});
+  });
+  portRow.addEventListener('scroll', updateDots);
+
+  // Drag to scroll
+  let isDragging=false, startX, scrollStart;
+  portRow.addEventListener('mousedown', e=>{isDragging=true; startX=e.pageX; scrollStart=portRow.scrollLeft;});
+  window.addEventListener('mousemove', e=>{
+    if(!isDragging) return;
+    portRow.scrollLeft = scrollStart - (e.pageX - startX);
+  });
+  window.addEventListener('mouseup', ()=>isDragging=false);
+  document.getElementById('contactForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    const btn = this.querySelector('.form-submit');
+    const msg = document.getElementById('formMsg');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const name    = document.getElementById('fname').value;
+    const phone   = document.getElementById('fphone').value;
+    const email   = document.getElementById('femail').value;
+    const service = document.getElementById('fservice').value;
+    const message = document.getElementById('fmsg').value;
+
+    // ── Option A: Formspree (replace YOUR_FORM_ID below after signing up at formspree.io) ──
+    const res = await fetch('https://formspree.io/f/xaqkbewy', {
+      method:'POST',
+      headers:{'Content-Type':'application/json', 'Accept':'application/json'},
+      body:JSON.stringify({name,phone,email,service,message})
+    });
+    if(res.ok){ showSuccess(); } else { showError(); }
+
+    // ── Option B: mailto fallback (works offline / without backend) ──
+    const subject = encodeURIComponent(`New Project Enquiry – ${service}`);
+    const body    = encodeURIComponent(
+      `Name: ${name}\nPhone: ${phone}\nEmail: ${email}\nService: ${service}\n\nMessage:\n${message}`
+    );
+    // window.location.href = `mailto:suyashkharde00@gmail.com?subject=${subject}&body=${body}`;
+    // showSuccess();
+
+    function showSuccess(){
+      msg.className = 'form-msg success';
+      msg.textContent = '✔ Message sent! We\'ll get back to you shortly.';
+      btn.textContent = 'Send Message ✦';
+      btn.disabled = false;
+    }
+    function showError(){
+      msg.className = 'form-msg error';
+      msg.textContent = '✖ Something went wrong. Please try WhatsApp or call directly.';
+      btn.textContent = 'Send Message ✦';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
