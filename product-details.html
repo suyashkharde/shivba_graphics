@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Customizer & Price Calculator | Shivba Graphics Sinnar</title>
+  <meta name="description" content="Customize paper stock, finishes, orientation, corners, and quantities with real-time bulk discount price calculations at Shivba Graphics, Sinnar.">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- CSS Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- 1. Top Utility Header Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-inner">
+        <div class="top-bar-left">
+          <a href="https://maps.app.goo.gl/FpA48YpSE9UAbErM6" target="_blank" class="top-bar-item" title="Open Google Maps Location">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Devi Road, near Aishwarya Temple, Sinnar, Maharashtra
+          </a>
+          <span class="top-bar-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+            Mon - Sat: 9:30 AM - 9:00 PM
+          </span>
+        </div>
+        <div class="top-bar-right">
+          <a href="tel:9970833003" class="top-bar-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            Call: +91 9970833003
+          </a>
+          <a href="https://wa.me/919970833003" target="_blank" class="top-bar-item" style="color: #25D366; font-weight: 600;">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            WhatsApp Akshad
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Sticky Main Navigation Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <!-- Brand Logo -->
+        <a href="index.html" class="brand-logo" aria-label="Shivba Graphics Home">
+          <img src="assets/images/logo.png" alt="Shivba Graphics Official Logo" class="brand-logo-img">
+          <div class="brand-info">
+            <span class="brand-name">SHIVBA GRAPHICS</span>
+            <span class="brand-tagline">Print • Merchandise • Signage</span>
+          </div>
+        </a>
+
+        <!-- Live Search Bar -->
+        <div class="header-search">
+          <input type="text" id="global-search-input" class="search-input" placeholder="Search 25+ products, visiting cards, apparel..." autocomplete="off">
+          <button class="search-btn" aria-label="Search">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
+          <div id="search-dropdown" class="search-results-dropdown"></div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="main-nav">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="products.html" class="nav-link active">Products</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="about.html" class="nav-link">About Us</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <a href="products.html" class="btn btn-outline btn-sm">Explore All</a>
+          <button class="hamburger-btn" aria-label="Open Menu">
+            <svg class="svg-icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay"></div>
+  <aside class="mobile-drawer">
+    <div class="drawer-header">
+      <div class="brand-logo">
+        <img src="assets/images/logo.png" alt="Shivba Graphics Logo" class="brand-logo-img">
+        <div class="brand-info">
+          <span class="brand-name">SHIVBA GRAPHICS</span>
+          <span class="brand-tagline">Sinnar, Maharashtra</span>
+        </div>
+      </div>
+      <button class="drawer-close-btn">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <nav class="drawer-nav">
+        <a href="index.html" class="drawer-link">Home</a>
+        <a href="products.html" class="drawer-link active">All Products & Pricing</a>
+        <a href="services.html" class="drawer-link">Commercial Services</a>
+        <a href="about.html" class="drawer-link">About Shivba Graphics</a>
+        <a href="contact.html" class="drawer-link">Store Location & Contact</a>
+      </nav>
+      <div class="drawer-footer">
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+          <strong>Akshad Deshmukh</strong> (Proprietor)<br>
+          Devi Road, near Aishwarya Temple, Sinnar
+        </p>
+        <a href="tel:9970833003" class="btn btn-outline btn-sm" style="width: 100%; margin-bottom: 0.5rem;">📞 Call +91 9970833003</a>
+        <a href="https://wa.me/919970833003" target="_blank" class="btn btn-whatsapp btn-sm" style="width: 100%;">💬 WhatsApp Order</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Breadcrumb Navigation -->
+  <nav class="breadcrumb-nav">
+    <div class="container">
+      <ul id="breadcrumb-list" class="breadcrumb-list">
+        <li><a href="index.html">Home</a></li>
+        <li class="breadcrumb-separator">/</li>
+        <li><a href="products.html">Products</a></li>
+        <li class="breadcrumb-separator">/</li>
+        <li class="breadcrumb-current">Product Details</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Main Product Detail & Configurator Section -->
+  <section class="section" style="padding-top: 1.5rem;">
+    <div class="container">
+      
+      <div class="product-detail-layout">
+        
+        <!-- Left Column: Visual Preview, Morphing Mockup & Technical Specifications -->
+        <div class="preview-sticky-wrap">
+          
+          <div class="live-preview-box">
+            <div class="preview-controls-bar">
+              <div class="preview-toggle-tabs">
+                <button type="button" id="tab-btn-photo" class="preview-toggle-btn active" onclick="window.productConfigurator && window.productConfigurator.switchPreviewMode('photo')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                  Product Photo
+                </button>
+                <button type="button" id="tab-btn-mockup" class="preview-toggle-btn" onclick="window.productConfigurator && window.productConfigurator.switchPreviewMode('mockup')">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                  Live Mockup & Finish
+                </button>
+              </div>
+              <span id="preview-dim-label" class="preview-dim-pill">89 x 54 mm</span>
+            </div>
+
+            <!-- Authentic High-Resolution Product Photo -->
+            <div id="preview-photo-view" class="preview-photo-wrap">
+              <img id="detail-product-photo" src="" alt="Product Photo" class="preview-large-photo">
+            </div>
+
+            <!-- Dynamic Morphing Product Card Mockup -->
+            <div id="live-morphing-card" class="live-morphing-card" style="display: none;">
+              <svg class="live-card-watermark" viewBox="0 0 100 100" fill="currentColor">
+                <path d="M50 0 C22 0 0 22 0 50 C0 78 22 100 50 100 C78 100 100 78 100 50 C100 22 78 0 50 0 Z"></path>
+              </svg>
+
+              <!-- Card Header -->
+              <div class="live-card-header">
+                <img src="assets/images/logo.png" alt="Shivba Logo" class="live-card-logo-img">
+                <div>
+                  <div class="live-card-brand-text">SHIVBA GRAPHICS</div>
+                  <div class="live-card-brand-sub">Premium Printing • Sinnar</div>
+                </div>
+              </div>
+
+              <!-- Card Body -->
+              <div class="live-card-body">
+                <div class="live-card-person-name">Akshad Deshmukh</div>
+                <div class="live-card-person-title">Founder & Managing Director</div>
+              </div>
+
+              <!-- Card Footer -->
+              <div class="live-card-footer">
+                <div>+91 9970833003 • Devi Road, Sinnar</div>
+                <span id="preview-finish-tag" class="live-card-finish-tag">Matte Laminated</span>
+              </div>
+            </div>
+
+            <p id="preview-note-text" style="font-size: 0.75rem; color: #94A3B8; margin-top: 1.25rem; text-align: center; z-index: 2;">
+              *High-definition studio photography of genuine finished product.
+            </p>
+          </div>
+
+          <!-- Product Technical Specs Table -->
+          <div class="preview-specs-card">
+            <h3 class="preview-specs-title">
+              <svg class="svg-icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+              Print & Production Specifications
+            </h3>
+            <div id="specs-container" class="specs-data-grid"></div>
+          </div>
+
+          <!-- Quality & Service Badges -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.25rem;">
+            <div style="background: var(--bg-alt); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem;">
+              <svg style="width: 28px; height: 28px; color: #16A34A; flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+              <div style="font-size: 0.8rem; line-height: 1.3;">
+                <strong>24-48h Dispatch</strong><br>
+                <span style="color: var(--text-muted);">Quick local pickup in Sinnar</span>
+              </div>
+            </div>
+            <div style="background: var(--bg-alt); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border); display: flex; align-items: center; gap: 0.75rem;">
+              <svg style="width: 28px; height: 28px; color: var(--accent); flex-shrink: 0;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+              <div style="font-size: 0.8rem; line-height: 1.3;">
+                <strong>Indigo & Roland</strong><br>
+                <span style="color: var(--text-muted);">High-def CMYK digital precision</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Configurator Engine -->
+        <div>
+          <div class="configurator-card">
+            
+            <div class="config-header">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span id="detail-product-cat" class="config-cat-badge">Business Cards</span>
+                <span id="detail-product-badge" class="tag tag-bestseller">Best Seller</span>
+              </div>
+              <h1 id="detail-product-title" class="config-product-title">Standard Visiting Cards</h1>
+              <p id="detail-product-desc" class="config-product-desc">
+                Crisp, high-definition business cards printed on 350 GSM premium art card with smooth matte or glossy lamination.
+              </p>
+            </div>
+
+            <!-- Step 1: Material Selection Dropdown -->
+            <div class="config-step-group">
+              <label for="config-material-select" class="config-step-label">
+                <div><span class="step-num">1.</span> <span id="materials-step-label">Select Paper Stock & Finish</span></div>
+                <span class="config-step-hint">Choose material</span>
+              </label>
+              <select id="config-material-select" class="form-select config-select"></select>
+            </div>
+
+            <!-- Step 2: Orientation Selection Dropdown -->
+            <div id="orientation-group" class="config-step-group">
+              <label for="config-orientation-select" class="config-step-label">
+                <div><span class="step-num">2.</span> <span>Select Orientation</span></div>
+                <span class="config-step-hint">Updates visual preview</span>
+              </label>
+              <select id="config-orientation-select" class="form-select config-select"></select>
+            </div>
+
+            <!-- Step 3: Corner Type Selection Dropdown -->
+            <div id="corner-group" class="config-step-group">
+              <label for="config-corner-select" class="config-step-label">
+                <div><span class="step-num">3.</span> <span>Select Corner Type</span></div>
+                <span class="config-step-hint">Square vs Rounded</span>
+              </label>
+              <select id="config-corner-select" class="form-select config-select"></select>
+            </div>
+
+            <!-- Step 4: Sides / Printing Selection Dropdown -->
+            <div id="sides-group" class="config-step-group">
+              <label for="config-sides-select" class="config-step-label">
+                <div><span class="step-num">4.</span> <span>Print Sides / Lamination</span></div>
+                <span class="config-step-hint">Single vs Double sided</span>
+              </label>
+              <select id="config-sides-select" class="form-select config-select"></select>
+            </div>
+
+            <!-- Step 5: Quantity & Tiered Bulk Savings Dropdown + Stepper -->
+            <div class="config-step-group">
+              <label for="config-qty-select" class="config-step-label">
+                <div><span class="step-num">5.</span> <span>Select Quantity (Bulk Savings)</span></div>
+                <span class="config-step-hint">Higher qty = Bigger discount</span>
+              </label>
+              <div class="qty-config-row" style="display: flex; gap: 0.75rem; align-items: center;">
+                <select id="config-qty-select" class="form-select config-select" style="flex: 1; min-width: 0;"></select>
+                <div class="qty-stepper" style="width: 170px; flex-shrink: 0;">
+                  <button type="button" id="calc-qty-minus" class="qty-btn" aria-label="Decrease quantity">−</button>
+                  <input type="number" id="calc-qty-input" class="qty-input" value="100">
+                  <button type="button" id="calc-qty-plus" class="qty-btn" aria-label="Increase quantity">+</button>
+                </div>
+              </div>
+
+              <!-- Unlocked Bulk Savings Banner -->
+              <div id="bulk-savings-banner" class="bulk-savings-banner" style="display: none; margin-top: 1rem;">
+                <div class="bulk-savings-icon">✓</div>
+                <div>
+                  <div id="bulk-savings-text" class="bulk-savings-text"></div>
+                  <div class="bulk-savings-sub">Automatic volume discount applied to your live total</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 6: Live Calculated Price Breakdown Box -->
+            <div class="price-breakdown-card">
+              <div class="price-row">
+                <span>Base Unit Rate:</span>
+                <span id="calc-breakdown-baserate" class="price-row-val">₹180 / 100 pcs</span>
+              </div>
+              <div class="price-row">
+                <span>Selected Quantity:</span>
+                <span id="calc-breakdown-qty" class="price-row-val">100 pcs</span>
+              </div>
+              <div id="calc-discount-row" class="price-row" style="display: none;">
+                <span id="calc-discount-label">Bulk Savings:</span>
+                <span id="calc-discount-val" class="price-row-discount">-₹0</span>
+              </div>
+              <div class="price-divider"></div>
+              <div class="price-grand-row">
+                <div class="grand-label-wrap">
+                  <span class="grand-label">Calculated Total</span>
+                  <span id="calc-unit-rate-label" class="grand-unit-rate">(Approx. ₹1.80 per card)</span>
+                </div>
+                <div class="grand-price-wrap">
+                  <span id="calc-grand-original" class="grand-original-strike" style="display: none;">₹0</span>
+                  <span id="calc-grand-total" class="grand-total-val">₹180</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Call to Actions -->
+            <div class="order-actions-stack">
+              <a id="btn-whatsapp-order" href="#" target="_blank" class="btn-whatsapp-order">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                <span>Order / Inquire via WhatsApp</span>
+              </a>
+              <a href="tel:9970833003" class="btn-call-direct">
+                <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <span>Call Akshad Deshmukh (+91 9970833003)</span>
+              </a>
+              <p class="order-guarantee-note">
+                ⚡ Direct connection with proprietor • Instant file review & PDF soft-proof provided
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Related Products from Category -->
+      <div style="margin-top: 5rem; padding-top: 3rem; border-top: 1px solid var(--border);">
+        <div class="section-header" style="text-align: left; margin-bottom: 2rem;">
+          <span class="section-badge badge-dark">Frequently Explored Together</span>
+          <h2 class="section-title">Complementary Products</h2>
+          <p class="section-subtitle" style="margin: 0;">Explore more corporate and retail printing solutions tailored for Sinnar businesses.</p>
+        </div>
+        <div id="related-products-grid" class="grid-4"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Multi-Column Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <div class="brand-logo" style="margin-bottom: 0.5rem;">
+            <img src="assets/images/logo.png" alt="Shivba Graphics Logo" class="brand-logo-img" style="border-color: rgba(255, 255, 255, 0.2);">
+            <div class="brand-info">
+              <span class="brand-name" style="color: #FFFFFF;">SHIVBA GRAPHICS</span>
+              <span class="brand-tagline" style="color: #94A3B8;">Sinnar, Maharashtra</span>
+            </div>
+          </div>
+          <p>Sinnar's premier printing house for business cards, merchandise, signage, and packaging.</p>
+          <div style="font-size: 0.85rem; color: #CBD5E1;">
+            <strong>Proprietor:</strong> Akshad Deshmukh <br>
+            <strong>Phone:</strong> +91 9970833003 <br>
+            <strong>Address:</strong> Devi Road, near Aishwarya Temple, Sinnar
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Print Products</h4>
+          <ul class="footer-links">
+            <li><a href="product-details.html?id=visiting-cards-standard">Visiting Cards</a></li>
+            <li><a href="product-details.html?id=stationery-letterheads">Office Letterheads</a></li>
+            <li><a href="product-details.html?id=apparel-polo-tshirt">Corporate Polo T-Shirts</a></li>
+            <li><a href="product-details.html?id=signage-rollup-standee">Roll-Up Standees</a></li>
+            <li><a href="product-details.html?id=packaging-vinyl-stickers">Waterproof Stickers</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Product Catalog</a></li>
+            <li><a href="services.html">Printing Services</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Store Location & Map</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Visit Our Sinnar Shop</h4>
+          <p style="font-size: 0.85rem; color: #94A3B8; margin-bottom: 0.75rem;">
+            Devi Road, near Aishwarya Temple, Sinnar, Maharashtra 422103
+          </p>
+          <a href="https://maps.app.goo.gl/FpA48YpSE9UAbErM6" target="_blank" class="btn btn-outline-white btn-sm" style="width: 100%; text-align: center;">
+            📍 Open in Google Maps
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Shivba Graphics. All Rights Reserved. Crafted for Akshad Deshmukh, Sinnar.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp Action Button -->
+  <a href="https://wa.me/919970833003?text=Hi%20Akshad%20ji,%20I%20want%20to%20order%20from%20Shivba%20Graphics" target="_blank" class="whatsapp-float-btn" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    <span>Chat with Akshad</span>
+  </a>
+
+  <!-- Mobile Bottom Sticky Navigation Bar -->
+  <div class="mobile-bottom-bar">
+    <div class="mobile-bottom-inner">
+      <a href="index.html" class="mobile-nav-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+      <a href="products.html" class="mobile-nav-btn active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+        <span>Products</span>
+      </a>
+      <a href="tel:9970833003" class="mobile-nav-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <span>Call</span>
+      </a>
+      <a href="https://wa.me/919970833003?text=Hi%20Akshad%20ji,%20I%20have%20an%20inquiry" target="_blank" class="mobile-nav-btn" style="color: #25D366;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/catalog.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/product-details.js"></script>
+</body>
+</html>

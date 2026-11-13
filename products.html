@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products & Printing Catalog | Shivba Graphics Sinnar</title>
+  <meta name="description" content="Browse full commercial printing catalog of Shivba Graphics in Sinnar: visiting cards, roll-up standees, custom apparel, corporate gifts, LED signboards, packaging boxes, and stickers.">
+  
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+  <style>
+    .svg-icon {
+      display: inline-block;
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke-width: 2;
+      stroke: currentColor;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vertical-align: middle;
+    }
+    .filter-tabs-bar {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      justify-content: center;
+    }
+    .cat-filter-btn {
+      padding: 0.6rem 1.25rem;
+      border-radius: var(--radius-full);
+      background: var(--bg-alt);
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      border: 1.5px solid transparent;
+      transition: var(--transition-fast);
+    }
+    .cat-filter-btn:hover {
+      background: var(--border);
+      color: var(--text-main);
+    }
+    .cat-filter-btn.active {
+      background: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+    .catalog-search-wrap {
+      max-width: 500px;
+      margin: 0 auto 2rem auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Utility Bar -->
+  <div class="top-bar">
+    <div class="container">
+      <div class="top-bar-inner">
+        <div class="top-bar-left">
+          <a href="https://maps.app.goo.gl/FpA48YpSE9UAbErM6" target="_blank" class="top-bar-item" title="Open Shivba Graphics on Google Maps">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Devi Road, near Aishwarya Temple, Sinnar, Maharashtra
+          </a>
+          <span class="top-bar-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Mon – Sat: 9:30 AM – 8:30 PM
+          </span>
+        </div>
+        <div class="top-bar-right">
+          <a href="tel:9970833003" class="top-bar-item">
+            <svg class="svg-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            Call: <span class="top-bar-highlight">+91 9970833003</span>
+          </a>
+          <a href="https://wa.me/919970833003" target="_blank" class="top-bar-item" style="color: #4ADE80;">WhatsApp Support</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <div class="header-inner">
+        <a href="index.html" class="brand-logo">
+          <img src="assets/images/logo.png" alt="Shivba Graphics Logo" class="brand-logo-img">
+          <div class="brand-info">
+            <span class="brand-name">SHIVBA GRAPHICS</span>
+            <span class="brand-tagline">Print • Brand • Signage • Sinnar</span>
+          </div>
+        </a>
+
+        <div class="header-search">
+          <div class="search-input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="global-search-input" placeholder="Search catalog..." autocomplete="off">
+          </div>
+          <div id="search-dropdown" class="search-results-dropdown"></div>
+        </div>
+
+        <nav class="main-nav">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="products.html" class="nav-link active">Products</a>
+          <a href="services.html" class="nav-link">Services</a>
+          <a href="about.html" class="nav-link">About Us</a>
+          <a href="contact.html" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-actions">
+          <a href="contact.html" class="btn btn-primary btn-sm">Contact Us</a>
+          <button class="hamburger-btn" aria-label="Open Menu">
+            <svg class="svg-icon" style="width: 28px; height: 28px;" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <div style="background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); color: #FFFFFF; padding: 3.5rem 0;">
+    <div class="container text-center" style="text-align: center;">
+      <span class="section-badge badge-dark">Complete Product Catalog</span>
+      <h1 style="color: #FFFFFF; font-size: 2.75rem; margin-bottom: 0.75rem;">Full Printing & Branding Range</h1>
+      <p style="color: #94A3B8; font-size: 1.1rem; max-width: 650px; margin: 0 auto;">
+        From 100 visiting cards to 5,000 corporate t-shirts or a 3D LED storefront sign. Filter by category or search below.
+      </p>
+    </div>
+  </div>
+
+  <!-- Catalog Section -->
+  <section class="section">
+    <div class="container">
+      
+      <!-- Filter Tabs -->
+      <div class="filter-tabs-bar">
+        <button class="cat-filter-btn active" data-filter="all">All Products (25+)</button>
+        <button class="cat-filter-btn" data-filter="business-cards">Visiting Cards</button>
+        <button class="cat-filter-btn" data-filter="stationery">Stationery</button>
+        <button class="cat-filter-btn" data-filter="corporate-gifts">Corporate Gifts</button>
+        <button class="cat-filter-btn" data-filter="apparel">Custom Apparel</button>
+        <button class="cat-filter-btn" data-filter="marketing">Marketing Prints</button>
+        <button class="cat-filter-btn" data-filter="signage">Signage & Standees</button>
+        <button class="cat-filter-btn" data-filter="packaging">Packaging & Labels</button>
+        <button class="cat-filter-btn" data-filter="design">Design & Pre-Press</button>
+      </div>
+
+      <!-- Live Filterable Product Grid Container -->
+      <div id="catalog-products-grid" class="grid-4"></div>
+
+      <!-- Custom Requirement CTA Box -->
+      <div style="background: var(--bg-alt); border: 2px dashed var(--border); border-radius: var(--radius-xl); padding: 3rem; text-align: center; margin-top: 4rem;">
+        <h3 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Have a Custom Dimension or Special Material?</h3>
+        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 1.5rem auto;">
+          We print customized sizes, specialized die-cut shapes, gold foiling, and bulk industrial packaging not listed here. Discuss directly with Akshad Deshmukh.
+        </p>
+        <a href="https://wa.me/919970833003?text=Hi%20Akshad%20ji,%20I%20have%20a%20custom%20specification%20printing%20requirement" target="_blank" class="btn btn-whatsapp btn-lg">
+          <svg class="svg-icon" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          Discuss Custom Requirement on WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Multi-Column Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <div class="brand-logo" style="margin-bottom: 0.5rem;">
+            <img src="assets/images/logo.png" alt="Shivba Graphics Logo" class="brand-logo-img" style="border-color: rgba(255, 255, 255, 0.2);">
+            <div class="brand-info">
+              <span class="brand-name" style="color: #FFFFFF;">SHIVBA GRAPHICS</span>
+              <span class="brand-tagline" style="color: #94A3B8;">Sinnar, Maharashtra</span>
+            </div>
+          </div>
+          <p>Sinnar's premier commercial printing house for business cards, merchandise, signage, and packaging.</p>
+          <div style="font-size: 0.85rem; color: #CBD5E1;">
+            <strong>Proprietor:</strong> Akshad Deshmukh <br>
+            <strong>Phone:</strong> +91 9970833003 <br>
+            <strong>Store:</strong> Devi Road, near Aishwarya Temple, Sinnar
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Print Categories</h4>
+          <ul class="footer-links-list">
+            <li><a href="products.html?cat=business-cards">Visiting Cards</a></li>
+            <li><a href="products.html?cat=stationery">Office Stationery</a></li>
+            <li><a href="products.html?cat=apparel">Custom T-Shirts</a></li>
+            <li><a href="products.html?cat=corporate-gifts">Corporate Gifts</a></li>
+            <li><a href="products.html?cat=signage">Roll-Up Standees</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul class="footer-links-list">
+            <li><a href="services.html#commercial-print">Offset & Digital Printing</a></li>
+            <li><a href="services.html#acrylic-led">3D LED Signboards</a></li>
+            <li><a href="services.html#dtf-apparel">DTF & Screen Printing</a></li>
+            <li><a href="services.html#design-services">Brand Logo Design</a></li>
+            <li><a href="index.html#estimator">Instant Quote Calculator</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Direct Contact</h4>
+          <p style="font-size: 0.875rem; color: #94A3B8; margin-bottom: 1.25rem;">Have questions or need assistance?</p>
+          <a href="https://wa.me/919970833003" target="_blank" class="btn btn-whatsapp" style="width: 100%; margin-bottom: 0.75rem;">WhatsApp Akshad</a>
+          <a href="tel:9970833003" class="btn btn-outline-white" style="width: 100%;">Call: 9970833003</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 Shivba Graphics. All Rights Reserved. Sinnar, Maharashtra.</div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="index.html">Home</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Quick View Modal -->
+  <div id="quickview-modal" class="modal-backdrop">
+    <div class="modal-content">
+      <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+      <div class="modal-grid">
+        <div class="modal-visual">
+          <img id="modal-img" src="" alt="Product Preview" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+        <div class="modal-details">
+          <span id="modal-cat-tag" class="section-badge" style="align-self: flex-start; margin-bottom: 0.5rem;">Category</span>
+          <h3 id="modal-title" class="modal-title">Product Name</h3>
+          <p id="modal-desc" style="color: var(--text-muted); font-size: 0.9rem;">Product detailed description.</p>
+          
+          <div style="margin: 1rem 0;">
+            <span style="font-size: 0.8rem; color: var(--text-muted); display: block;">Starting Rate:</span>
+            <span id="modal-price" style="font-size: 1.5rem; font-weight: 800; color: var(--accent);">₹0</span>
+          </div>
+
+          <div id="modal-specs-container" class="modal-specs-list"></div>
+
+          <div style="margin-top: auto; display: flex; flex-direction: column; gap: 0.65rem;">
+            <a id="modal-customize-btn" href="#" class="btn btn-primary" style="width: 100%; text-align: center;">
+              Customize & Calculate Price →
+            </a>
+            <a id="modal-wa-btn" href="#" target="_blank" class="btn btn-whatsapp" style="width: 100%; text-align: center;">
+              Inquire via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Action Bar -->
+  <div class="mobile-bottom-bar">
+    <div class="mobile-bottom-inner">
+      <a href="index.html" class="mobile-nav-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+        <span>Home</span>
+      </a>
+      <a href="products.html" class="mobile-nav-btn active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+        <span>Catalog</span>
+      </a>
+      <a href="tel:9970833003" class="mobile-nav-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+        <span>Call Now</span>
+      </a>
+      <a href="https://wa.me/919970833003" target="_blank" class="mobile-nav-btn" style="color: var(--whatsapp);">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-overlay"></div>
+  <div class="mobile-drawer">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
+      <div class="brand-logo">
+        <img src="assets/images/logo.png" alt="Shivba Graphics Logo" class="brand-logo-img" style="width: 36px; height: 36px;">
+        <span class="brand-name" style="font-size: 1.15rem;">SHIVBA GRAPHICS</span>
+      </div>
+      <button class="drawer-close-btn" style="font-size: 1.5rem; color: var(--text-muted);">&times;</button>
+    </div>
+    <nav style="display: flex; flex-direction: column; gap: 1.25rem;">
+      <a href="index.html" style="font-weight: 600; font-size: 1.05rem;">Home</a>
+      <a href="products.html" style="font-weight: 700; color: var(--accent); font-size: 1.1rem;">Products Catalog</a>
+      <a href="services.html" style="font-weight: 600; font-size: 1.05rem;">Services & Machinery</a>
+      <a href="about.html" style="font-weight: 600; font-size: 1.05rem;">About Shivba Graphics</a>
+      <a href="contact.html" style="font-weight: 600; font-size: 1.05rem;">Contact & Store Location</a>
+    </nav>
+  </div>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/919970833003" target="_blank" class="whatsapp-float-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+    <span>Chat with Akshad</span>
+  </a>
+
+  <script src="js/catalog.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Render all catalog products dynamically into grid
+    document.addEventListener('DOMContentLoaded', () => {
+      const grid = document.getElementById('catalog-products-grid');
+      if (!grid || typeof SHIVBA_CATALOG === 'undefined') return;
+
+      // Check URL query param for category filter (e.g. ?cat=apparel)
+      const urlParams = new URLSearchParams(window.location.search);
+      const initialCat = urlParams.get('cat') || 'all';
+
+      // Build SVG icon mapping for visual consistency
+      const getCategoryIconSvg = (cat) => {
+        switch(cat) {
+          case 'business-cards':
+            return '<svg style="width: 65px; height: 65px; color: var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>';
+          case 'stationery':
+            return '<svg style="width: 65px; height: 65px; color: #2563EB;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>';
+          case 'corporate-gifts':
+            return '<svg style="width: 65px; height: 65px; color: #D97706;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line></svg>';
+          case 'apparel':
+            return '<svg style="width: 65px; height: 65px; color: #16A34A;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>';
+          case 'signage':
+            return '<svg style="width: 65px; height: 65px; color: #9333EA;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg>';
+          case 'packaging':
+            return '<svg style="width: 65px; height: 65px; color: #EA580C;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>';
+          default:
+            return '<svg style="width: 65px; height: 65px; color: var(--accent);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>';
+        }
+      };
+
+      grid.innerHTML = SHIVBA_CATALOG.products.map(p => `
+        <div class="product-card product-grid-item" data-category="${p.category}">
+          <a href="product-details.html?id=${p.id}" class="product-card-visual" style="text-decoration: none;">
+            <span class="tag ${p.badgeClass} product-card-badge">${p.badge}</span>
+            <div class="product-card-art">
+              <img src="${p.image || 'assets/images/products/' + p.id + '.jpg'}" alt="${p.name}" class="product-card-img" loading="lazy">
+            </div>
+          </a>
+          <div class="product-card-body">
+            <span class="product-card-category">${p.categoryName}</span>
+            <h4 class="product-card-title"><a href="product-details.html?id=${p.id}" style="color: inherit; text-decoration: none;">${p.name}</a></h4>
+            <p class="product-card-desc">${p.description}</p>
+            <div class="product-card-meta">
+              <div>
+                <span class="product-price-label">Starting at</span>
+                <span class="product-price-val">${p.startingPrice}</span>
+              </div>
+              <span style="font-size: 0.8rem; color: var(--text-muted);">${p.unit}</span>
+            </div>
+            <div class="product-actions">
+              <a href="product-details.html?id=${p.id}" class="btn btn-primary btn-sm" style="flex: 1; text-align: center;">Customize & Price →</a>
+              <button class="btn btn-outline btn-sm" onclick="openProductQuickView('${p.id}')">Specs</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      // Apply initial filter if URL has category
+      if (initialCat !== 'all') {
+        const targetBtn = document.querySelector(`.cat-filter-btn[data-filter="${initialCat}"]`);
+        if (targetBtn) {
+          document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active'));
+          targetBtn.classList.add('active');
+          window.filterProductGrid(initialCat);
+        }
+      }
+    });
+  </script>
+</body>
+</html>
